@@ -30,7 +30,6 @@ for i in range(50):
 st.sidebar.header("Hyperparameters")
 learning_rate = st.sidebar.number_input("Learning Rate (α)", min_value=0.01, max_value=0.5, value=0.1, step=0.01)
 max_steps = st.sidebar.number_input("Max Steps", min_value=10, max_value=100, value=20, step=5)
-run_button = st.sidebar.button("↻ Restart Simulation")
 
 # Gradient Descent loop
 m_current, b_current = 0.0, 0.0
@@ -76,6 +75,7 @@ with col_play:
 
 with col_slider:
     step = st.slider("Gradient Descent Step", min_value=0, max_value=max_steps, value=st.session_state.step, key='slider_step', on_change=update_step, label_visibility="collapsed")
+    st.write(f"If _Play ▶_ button doesn't seem to work, click on the point of the slider and use arrows.")
 
 col1, col2, col3 = st.columns(3)
 
