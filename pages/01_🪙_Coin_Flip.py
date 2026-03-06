@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import streamlit as st
+from math import comb
 
 st.set_page_config(page_title="Coin Flip", page_icon="🪙", layout="wide")
 st.title("🪙 Coin Flip")
@@ -12,7 +13,7 @@ num_heads = st.sidebar.slider("Number of heads:", min_value=0, max_value=num_fli
 
 prob = np.array([0.0] * (num_flip + 1))
 for i in range(num_flip + 1):
-    prob[i] = np.math.comb(num_flip, i) * 0.5 ** num_flip
+    prob[i] = comb(num_flip, i) * 0.5 ** num_flip
 
 if flip_type == "At least":
     result = sum(prob[num_heads:])
