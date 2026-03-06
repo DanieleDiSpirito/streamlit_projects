@@ -45,14 +45,14 @@ if st.button("▶ Run Simulation"):
         st.write(f"**Estimated e:** `{estimated_e:.4f}` (ε = `{error_e:.4f}%`)")
         st.write(f"**True e:** `{E:.8f}`")
         with st.expander("📖 See the math behind the $e$ estimation"):
-            st.markdown("""
+            st.markdown(r"""
             When $X$ and $Y$ are independent standard normal random variables, the sum of their squares $R^2 = X^2 + Y^2$ follows an **Exponential distribution** with $\lambda = 1/2$ (also a Chi-squared distribution).
             
             The probability $p$ of a point falling inside the unit circle ($R^2 < 1$) is the cumulative distribution function (CDF) evaluated at 1:
-            $$p = P(R^2 < 1) = 1 - e^{-1/2} = 1 - \\frac{1}{\\sqrt{e}}$$
+            $$p = P(R^2 < 1) = 1 - e^{-1/2} = 1 - \frac{1}{\sqrt{e}}$$
             
             By estimating this probability $p$ via the Monte Carlo simulation, we can algebraically solve for $e$:
-            $$\\frac{1}{\\sqrt{e}} = 1 - p \implies e = (1 - p)^{-2}$$
+            $$\frac{1}{\sqrt{e}} = 1 - p \implies e = (1 - p)^{-2}$$
 
             More info here: [Pi Monte Carlo Simulation using Gaussian Distribution](https://github.com/DanieleDiSpirito/uni/blob/master/secondo_anno/statistica/Pi_Monte_Carlo_Simulation_using_Gaussian_Distribution.pdf)
             """)

@@ -61,15 +61,18 @@ if 'playing' not in st.session_state:
 def update_step():
     st.session_state.step = st.session_state.slider_step
 
-col_play, col_pause, col_slider = st.columns([1, 1, 4])
+col_play, col_slider = st.columns([1, 5])
 with col_play:
-    if st.button("▶ Play"):
-        st.session_state.playing = True
-        if st.session_state.step >= max_steps:
-            st.session_state.step = 0
-with col_pause:
-    if st.button("⏸ Pause"):
-        st.session_state.playing = False
+    if st.session_state.playing:
+        if st.button("⏸ Pause"):
+            st.session_state.playing = False
+            st.rerun()
+    else:
+        if st.button("▶ Play"):
+            st.session_state.playing = True
+            if st.session_state.step >= max_steps:
+                st.session_state.step = 0
+            st.rerun()
 
 with col_slider:
     step = st.slider("Gradient Descent Step", min_value=0, max_value=max_steps, value=st.session_state.step, key='slider_step', on_change=update_step, label_visibility="collapsed")
@@ -155,7 +158,7 @@ st.write(f"**Step {step}** — MSE Loss: `{loss_history[step]:.4f}` | $m = {m_hi
 # Autoplay loop
 if st.session_state.playing:
     if st.session_state.step < max_steps:
-        time.sleep(0.1)
+        time.sleep(0.5)
         st.session_state.step += 1
         st.rerun()
     else:
