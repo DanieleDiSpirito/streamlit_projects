@@ -136,6 +136,7 @@ with col3:
     ax3.plot(range(step+1), loss_history[:step+1], color='#38BDF8', linewidth=2, marker='o', markersize=3, label='MSE Loss')
     ax3.set_xlim(0, max_steps)
     ax3.set_yscale('log')
+    ax3.set_xticks(np.linspace(0, max_steps, min(11, max_steps + 1), dtype=int))
     
     start_loss = max(1, loss_history[0]) if loss_history else 100
     min_loss = min(loss_history)
@@ -155,11 +156,13 @@ with col3:
 st.markdown("---")
 st.write(f"**Step {step}** — MSE Loss: `{loss_history[step]:.4f}` | $m = {m_history[step]:.4f}$ | $b = {b_history[step]:.4f}$")
 
-# Autoplay loop
-if st.session_state.playing:
-    if st.session_state.step < max_steps:
-        time.sleep(0.5)
-        st.session_state.step += 1
-        st.rerun()
-    else:
-        st.session_state.playing = False
+@st.fragment(run_every=0.5 if st.session_state.get('playing', False) else None)
+def autoplay_fragment():
+    if st.session_state.get('playing', False):
+        if st.session_state.step < max_steps:
+            st.session_state.step += 1
+            st.rerun()
+        else:
+            st.session_state.playing = False
+
+autoplay_fragment()
